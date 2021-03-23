@@ -1,0 +1,20 @@
+# Site settings
+title:              MSR Portfolio
+email:              WeiyuanDeng2017@u.northwestern.edu
+description:        "Portfolio template for students in the MSR program at Northwestern University"
+url:                "https://WeiyuanDeng.github.io"
+
+# File structure settings
+image_path:         /public/images
+asset_path:         /public/assets
+
+# Build settings
+markdown:           kramdown
+permalink:          pretty
+future:             true
+
+# Collection definitions and settings
+collections:
+  projects:
+    output: true
+    permalink: /projects/:path/

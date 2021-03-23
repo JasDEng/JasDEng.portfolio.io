@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta charset="utf-8">
+
+	
+	<script type="text/javascript"
+			src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+	</script>
+
+	<title>MSR Portfolio</title>
+	<link rel="icon" type="image/png" href="/public/images/msr-student-template-favicon.png">
+
+	<link rel="stylesheet" href="/public/stylesheets/style.css">
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+</head>
+
+
+  <body>
+
+    <div id="wrapper">
+
+      <header>
+    <nav>
+    	<a href="/"><h1>Weiyuan Deng</h1></a>
+    	<ul>
+    		<li><a href="/">Portfolio</a></li>
+    		<li><a href="/about/">About</a></li>
+    		<li><a href="/contact/">Contact</a></li>
+    	</ul>
+    </nav>
+</header>
+
+
+      <main class="project">
+	<section id="contact-content">
+		<img id="project-image" src="/public/images/music.JPG">
+		<h1 id="project-title">Music Instrument Classifier</h1>
+		<h2 id="project-date">March 16, 2017</h2>
+
+		<h2 id="overview">Overview</h2>
+<p>This is a simple classifier that is able to detect single-note sounds of various musical instruments.
+Currently supported types are cello, clarinet, flute, violin and piano. The audios are supposed to be single-note sounds within the 4th octave.
+Created by Ivy Zheng, Weiyuan Deng and Yuchen Rao from Northwestern University.</p>
+
+<h3 id="dataset">Dataset</h3>
+<p>The dataset used to train this classifier was collected from <a href="http://www.philharmonia.co.uk/explore/sound_samples">London Philharmonic Orchestra Dataset</a>. Each audio file records one note from one of the five instruments, and has a length from 0.25 seconds to 6 seconds. In total, over 600 audio pieces were used to train the classifier, and the distribution of each class was roughly the same.</p>
+
+<h3 id="dependencies">Dependencies</h3>
+<p>Python 2.7</p>
+
+<p>NumPy</p>
+
+<p>Scikit-Learn (sklearn)</p>
+
+<p>Librosa</p>
+
+<p>glob</p>
+
+<h3 id="implementation">Implementation</h3>
+
+<h4 id="preprocessing">Preprocessing</h4>
+<p>The music pieces have their leading and ending silence trimmed. The threshold of trimming is 0.001 - if the intensity of the sound in the frame is below 0.1% of the highest sound intensity in the audio file, then the frame is trimmed out.</p>
+
+<h4 id="feature-extraction">Feature Extraction</h4>
+<p>The Mel Frequency Cepstral Coefficents (MFCCs) of each music piece was extracted using Librosa. For each audio file, its MFCCs are averaged to produce the final, length-20 feature vector.</p>
+
+<h4 id="classification">Classification</h4>
+<p>An SVM classifier is trained from the feature vectors to determine the instrument it belongs to. The SVM classifier worked in a one-vs-rest fashion, in which it trained 5 classifiers for each intrument class against all audios that are not in that class. The kernel of the SVM classifiers is linear.</p>
+
+<h3 id="performance">Performance</h3>
+
+<h4 id="accuracy">Accuracy</h4>
+<p>With the given dataset and under 10-fold cross-validation, we achived a 95% accuracy on the instrument label prediction.</p>
+
+<h4 id="time-efficiency">Time Efficiency</h4>
+<p>The most time-consuming part of the system is the MFCC feature extraction. However, it still needs less than a second to process a one-second audio, which makes it feasible to do real-time instrument detection.</p>
+
+<h4 id="try-it-out">Try it Out</h4>
+<p>In addition to the code for training, this <a href="https://github.com/IvyZX/music-instrument-classifier">repository</a> also includes a pre-trained model that you can play with. Try to run the following code in your terminal:</p>
+
+<p>python demo.py</p>
+
+<p>After that, type in the audio file path that you want to classify. It will output the musical instrument that it recognized in the audio.</p>
+
+
+	</section>
+
+</main>
+
+
+      <footer>
+    <ul>
+    	<li>weiyuandeng2017@u.northwestern.edu</li>
+    	<li>225 N Columbus Drive. Chicago, IL-60601</li>
+    	<li>(317) 600-6890</li>
+    </ul>
+</footer>
+
+
+
+    </div>
+
+  </body>
+</html>

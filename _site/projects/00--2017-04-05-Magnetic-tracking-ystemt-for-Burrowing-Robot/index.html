@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta charset="utf-8">
+
+	
+	<script type="text/javascript"
+			src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+	</script>
+
+	<title>MSR Portfolio</title>
+	<link rel="icon" type="image/png" href="/public/images/msr-student-template-favicon.png">
+
+	<link rel="stylesheet" href="/public/stylesheets/style.css">
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+</head>
+
+
+  <body>
+
+    <div id="wrapper">
+
+      <header>
+    <nav>
+    	<a href="/"><h1>Weiyuan Deng</h1></a>
+    	<ul>
+    		<li><a href="/">Portfolio</a></li>
+    		<li><a href="/about/">About</a></li>
+    		<li><a href="/contact/">Contact</a></li>
+    	</ul>
+    </nav>
+</header>
+
+
+      <main class="project">
+	<section id="contact-content">
+		<img id="project-image" src="/public/images/magnet.jpg">
+		<h1 id="project-title">Magnetic Localization System for Burrowing Robot</h1>
+		<h2 id="project-date">September 22, 2017</h2>
+
+		<h2 id="overview">Overview</h2>
+<p>The objective of the project is to design a magnetic tracking system that can work under
+granular material for a burrowing robot. The burrowing robot will be relative small and tested
+under granular material like poppy seed. To better control and characterize it, it will be
+necessary to know its position in real time. After it dig into the poppy seed, it will be hard to tell
+where it is and what orientation it has. Therefore, in order to get the burrowing robot’s real time
+position and orientation, a magnetic tracking system is designed and tested in the project.</p>
+
+<p>In this study, a single dipole magnet will be attached to the robot with 6-degrees of freedom. To
+detect the 6-degrees of freedom robot, at least 6 independent measurements of the magnetic
+field will be needed. Therefore, a two sensor geometry and a single dipole magnet will be used
+in the study. Arduino is used for communication between PC and sensors. Program language
+used in the study is Python.</p>
+
+<h3 id="magnet">Magnet</h3>
+<p>A tiny common magnet with the North pole marked with black dot.</p>
+
+<h3 id="sensor">Sensor</h3>
+<p>The magnetometers used in the project are <a href="https://www.sparkfun.com/products/14294">MLX90393</a> from <a href="https://www.sparkfun.com/">Sparkfun</a>.</p>
+
+<p><img src="/public/images/sensor.png" alt="Sensor" /></p>
+
+<p>It is a tri-axial magnetic
+sensor capable of sensing very small fields (like the Earth’s magnetic field) while behaving as one would want expect during saturation in larger fields (like a nearby magnet).It has a resolution of 0.161µT, and a max full scale resolution of 44,000µT. The sensor supports both I2C and SPI communication protocols, and has a user selectable I2C address that supports up
+to four sensors on the I2C bus at a time.</p>
+
+<p>The farthest distance that the MLX90393 can sense the magnetic field of the magnet used in the study is around 350 mm from the breakout board (the data read from the sensor will not have any obvious change at a distance of 400 mm). Below is a real time plot of magnetic strength vs. time when the magnet (its dipole points to the direction of z-axis) is slowly moved away from the sensor. The green curve is the magnetic strength in z-axis direction, it reached its lowest point at a distance of 400mm from the sensor.</p>
+
+<p>Here is the <a href="https://cdn.sparkfun.com/assets/learn_tutorials/5/7/7/MLX90393-Datasheet-Melexis.PDF">datasheet for MLX90393</a>.</p>
+
+<h3 id="microcontroller">Microcontroller</h3>
+<p>To connect the sensor with the computer, an <a href="https://www.arduino.cc/en/Main/ArduinoBoardUno">Arduino Uno R3</a> is used.</p>
+
+<p><img src="/public/images/uno.png" alt="Uno" /></p>
+
+<p>Arduino Uno is a microcontroller board based on the ATmega328P (<a href="http://www.atmel.com/images/Atmel-8271-8-bit-AVR-Microcontroller-ATmega48A-48PA-88A-88PA-168A-168PA-328-328P_datasheet_Complete.pdf">datasheet</a>). It has 14 digital input/output pins (of which 6 can be used as PWM outputs), 6 analog inputs, a 16 MHz quartz crystal, a USB connection, a power jack, an ICSP header and a reset button.</p>
+
+<p>To get started with Arduino Uno, <a href="https://www.arduino.cc/en/Guide/HomePage">here</a> is a guide from Arduino official website.</p>
+
+<h3 id="qwiic-cable">Qwiic Cable</h3>
+<p>All Qwiic cables have the following color scheme and arrangement:
+Black = GND
+Red = 3.3V
+Blue = SDA
+Yellow = SCL</p>
+
+<p><img src="/public/images/pinout.png" alt="Pinout" /></p>
+
+<h3 id="process">Process</h3>
+<p>Ted Yapo has written a good Arduino Library for the MLX90393, which could be found <a href="https://github.com/tedyapo/arduino-MLX90393">here</a>.</p>
+
+<p>The ruler is taped along the direction of X-axis of the magnetometer. Magnet can be placed in three different direction on the ruler, as the figure shows below.</p>
+
+<p><img src="/public/images/direction.png" alt="Direction" /></p>
+
+<p>Before the test, the magnetometer recorded data for an hour with the magnet was putting far enough. Then take the average of the recording data to get the earth magnetic strength.</p>
+
+<p>In the test, the magnet was moved from 500 mm from the breakout board to 30 or 20 mm (to prevent damaging the sensor, with the north pole pointed to X-direction, the nearest distance is 30 mm, others are 20 mm). From 500 mm to 100 mm, record the magnetic strengh of X, Y and Z direction every 25 mm. From 100 mm to 20 (30) mm, record data every 5 mm. Plot the data and find function that can fit it.</p>
+
+<p><img src="/public/images/magnetometer.png" alt="magnetometer" /></p>
+
+<p>All were fixed on the desk with tape except the magnet (there are magnets inside the laptop, so it is fixed till the test ended).</p>
+
+<h3 id="results">Results</h3>
+<p>The farthest distance that the MLX90393 can sense the magnetic field of the magnet is around 550 mm from the breakout board (The data read from the sensor will not have any obvious change at a distance of 600 mm).</p>
+
+<p>The magnetic strength without the magnet around are:
+magX = 12.50
+magY = -4.60
+magZ =-60.80
+with a temperature of 28.50 celsius degree.</p>
+
+<p><img src="/public/images/ear.png" alt="ear" /></p>
+
+<p>In fact, the magnetic strenght was keeping changing, so the test was finished as soon as possible.</p>
+
+<p>Three plots were generated by <a href="http://www.wolfram.com/mathematica/online/?src=google&amp;420">Mathematica</a>. All of them are in a reasonable pattern. In the fitting part, I tried using nonlinear model with exponential function to fit the data, but came across overflow computation error but haven’t solved it yet.</p>
+
+<p>Below are the plots of magnetic strength in different direction vs. distance from magnetometer breakout board (earth magnetic strength has been removed).</p>
+
+<p><img src="/public/images/xdirec.png" alt="x-direc" /></p>
+
+<p><img src="/public/images/ydirec.png" alt="y-direc" /></p>
+
+<p><img src="/public/images/zdirec.png" alt="z-direc" /></p>
+
+
+	</section>
+
+</main>
+
+
+      <footer>
+    <ul>
+    	<li>weiyuandeng2017@u.northwestern.edu</li>
+    	<li>225 N Columbus Drive. Chicago, IL-60601</li>
+    	<li>(317) 600-6890</li>
+    </ul>
+</footer>
+
+
+
+    </div>
+
+  </body>
+</html>
